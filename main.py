@@ -24,3 +24,27 @@ def hit_card():
         card_values.append(card)
 
 
+# custom function to print hands in proper format
+def print_hands():
+    hand_parts=[]
+    
+    for i in range(len(user_cards)):
+        card=user_cards[i]
+        value=card_values[i]
+        hand_parts.append(f"{card} ({value})")
+        # here, hand_parts is the list with the values stored as: ["Ace (11)", "Queen (10)", "7 (7)"]
+    
+    hand_str="Hand: " + " + ".join(hand_parts)
+    # here, .join() functions joins all the elements in the lsit hand_parts putting in " + " in between them
+    # ie. hand_str = "Ace (11) + Queen (10) + 7 (7)"
+    print(hand_str)
+
+
+
+
+
+# Initial two hands
+hit_card()
+hit_card()
+
+print_hands()
