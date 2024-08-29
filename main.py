@@ -27,7 +27,7 @@ def hit_card(card_names, card_values):
         card_names.append("King")
         card_values.append(10)
     else:
-        card_names.append(str(card))
+        card_names.append(card)
         card_values.append(card)
 
 # custom function to print hands in proper format
@@ -37,10 +37,14 @@ def print_hands(card_names, card_values, player):
     for i in range(len(card_names)):
         card=card_names[i]
         value=card_values[i]
-        hand_parts.append(f"{card} ({value})")
+        
+        if (type(card)==str):
+            hand_parts.append(f"{card} ({value})")
+        elif (type(card)==int):
+            hand_parts.append(f"{card}")
         # here, hand_parts is the list with the values stored as: ["Ace (11)", "Queen (10)", "7 (7)"]
     
-    hand_str="    "+player+" hands: " + " + ".join(hand_parts)
+    hand_str="    "+player+" hand: " + " + ".join(hand_parts)
     # here, .join() functions joins all the elements in the lsit hand_parts putting in " + " in between them
     # ie. hand_str = "Ace (11) + Queen (10) + 7 (7)"
     print(hand_str)
@@ -50,20 +54,32 @@ def adjust_ace(card_values):
     while (sum(card_values)>21 and 11 in card_values):     # Check if total is over 21 and if there's an Ace valued at 11
         card_values[card_values.index(11)]=1     # Change the Ace's value from 11 to 1
 
-def win_check(card_values):
+def win_check(card_values, player):
     card_sum=sum(card_values)
     
     if (card_sum==21):
-        print("Congratulations! It's a BLACKJACK.")
-        print("You win!")
+        time.sleep(1)
+        print("\n--------------------------------------------------")
+        print("\nIT IS A BLACKJACK!")
+        if (player!="Dealer"):
+            print("Congratulations! You win!\n")
+        else:
+            print(f"{player} wins the game.\n")
         exit()
     elif (card_sum>21):
-        print("\nIt's a BUST :(")
-        print("Better luck next time!")
+        time.sleep(1)
+        print("\n--------------------------------------------------")
+        print("\nIT IS A BUST :(")
+        if (player!="Dealer"):
+            print("Better luck next time!\n")
+        else:
+            
+            print("You win the game!\n")
         exit()
 
-# Taking User's name
+# Taking User's name & Setting's Dealer's name
 user_name=input("What's your name? ").capitalize()
+dealer_name="Dealer"
 
 # Initial two hands
 for i in range(0, 2):
@@ -71,13 +87,15 @@ for i in range(0, 2):
     hit_card(dealer_cards, dealer_values)
 
 # Print user's initial two hands
+print("\n--------------------------------------------------")
+print(f"INITIAL HAND: ")
 print_hands(user_cards, user_values, user_name)
 
 # game_over=False
 
 while (True):
-    win_check(user_values)
-
+    # checking for blackjack or bust
+    win_check(user_values, user_name)
     right_input = False
 
     while (not right_input):
@@ -90,48 +108,42 @@ while (True):
         hit_card(user_cards, user_values)
         adjust_ace(user_values) # to fix if any aces are there and the sum exceeds 21
         print_hands(user_cards, user_values, user_name)
-        win_check(user_values)
+        win_check(user_values, user_name)
     else:
+        time.sleep(1)
         user_card_sum=sum(user_values)
-        print(f"\nFinal hand: ")
+        print(f"\nFINAL HAND: ")
         print_hands(user_cards, user_values, user_name)
         break
 
+# Dealer Side Hand                                      
+game_decision=True
+time.sleep(1)
+print("\n--------------------------------------------------")
+print("--------------------------------------------------")
+print(f"INITIAL HAND: ")
+print_hands(dealer_cards, dealer_values, dealer_name)
 
-
-
+while (game_decision):
+    dealer_card_sum=sum(dealer_values)
     
-    
-    
-    
-    
-
-# print_hands()
-
-
-# if (my_card<0 or my_card>13):
-#     print("BAD CARD")
-# else:
-#     print(f"Your hand value is {my_card}")
-
-
-# Write code here to identify the value of each card.
-# my_card=int(input(""))
-# if (my_card<0 or my_card>13):
-#     print("BAD CARD")
-# elif (my_card==1):
-#     print("Your hand value is 11.")
-# elif (my_card>=10 and my_card<=13):
-#     print("Your hand value is 10.")
-# else:
-#     print(f"Your hand value is {my_card}.")
-
-
-# Write code here to print out the game outcome given a hand value.
-# hand_value=int(input())
-# if (hand_value==21):
-#     print("BLACKJACK!")
-# elif (hand_value<4 or hand_value>31):
-#     print("BAD HAND VALUE!")
-# elif (hand_value>21):
-#     print("BUST.")
+    if (dealer_card_sum<user_card_sum or dealer_card_sum<17):
+        print(f"\n{dealer_name} thinking...")
+        time.sleep(3)
+        print(f"\n{dealer_name} hits!")
+        time.sleep(1)
+        hit_card(dealer_cards, dealer_values)
+        adjust_ace(dealer_values)
+        print_hands(dealer_cards, dealer_values, dealer_name)  
+        win_check(dealer_values, dealer_name)
+    elif (dealer_card_sum>=user_card_sum and dealer_card_sum<22):
+        print("\n--------------------------------------------------")
+        print("FINAL HAND:")
+        print_hands(user_cards, user_values, user_name)
+        print_hands(dealer_cards, dealer_values, dealer_name)  
+        print("")
+        if (dealer_card_sum==user_card_sum):
+            print("It's a Push (Tie).\n")
+        else:
+            print(f"{dealer_name} wins the game.\n")
+        exit()
