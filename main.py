@@ -99,7 +99,7 @@ while (True):
     right_input = False
 
     while (not right_input):
-        draw_card = input("\nDraw another card? (Y/N) ")
+        draw_card = input("\nHit another card? (Y/N) ")
         # check if user gives the right input
         if (draw_card.lower() == "y" or draw_card.lower() == "n"):
             right_input = True
@@ -110,6 +110,7 @@ while (True):
         print_hands(user_cards, user_values, user_name)
         win_check(user_values, user_name)
     else:
+        print(f"\n{user_name} stands!")
         time.sleep(1)
         user_card_sum=sum(user_values)
         print(f"\nFINAL HAND: ")
@@ -123,20 +124,24 @@ print("\n--------------------------------------------------")
 print("--------------------------------------------------")
 print(f"INITIAL HAND: ")
 print_hands(dealer_cards, dealer_values, dealer_name)
+win_check(dealer_values, dealer_name)
 
 while (game_decision):
     dealer_card_sum=sum(dealer_values)
     
-    if (dealer_card_sum<user_card_sum or dealer_card_sum<17):
-        print(f"\n{dealer_name} thinking...")
-        time.sleep(3)
+    print(f"\n{dealer_name} thinking...")
+    time.sleep(3)
+    if (dealer_card_sum<17):
         print(f"\n{dealer_name} hits!")
         time.sleep(1)
         hit_card(dealer_cards, dealer_values)
         adjust_ace(dealer_values)
         print_hands(dealer_cards, dealer_values, dealer_name)  
         win_check(dealer_values, dealer_name)
-    elif (dealer_card_sum>=user_card_sum and dealer_card_sum<22):
+        
+    elif (dealer_card_sum>=17):
+        print(f"\n{dealer_name} stands!")
+        time.sleep(1)
         print("\n--------------------------------------------------")
         print("FINAL HAND:")
         print_hands(user_cards, user_values, user_name)
@@ -144,6 +149,8 @@ while (game_decision):
         print("")
         if (dealer_card_sum==user_card_sum):
             print("It's a Push (Tie).\n")
-        else:
+        elif (dealer_card_sum>user_card_sum):
             print(f"{dealer_name} wins the game.\n")
+        elif (dealer_card_sum<user_card_sum):
+            print(f"{user_name} wins the game.\n")
         exit()

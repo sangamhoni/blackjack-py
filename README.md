@@ -1,7 +1,14 @@
 # Blackjack!
-Blackjack is a popular gambling card game in which players attempt to make a hand as close as possible to a sum of 21 without going over.  
+Blackjack is a popular gambling card game where players aim to create a hand as close as possible to a sum of 21 without going over.  
 
-Each player is dealt an initial hand of 2 cards. The first player may then choose to "hit" (draw another card into their hand) or "stand" (keep their current hand), and play passes to the next player. A player may hit as many times as they want, but if they go over 21, they "bust" - or automatically lose.  
+Each player is initially dealt 2 cards. The player can then choose to "hit" (draw another card) or "stand" (keep their current hand). A player may hit as many times as they like, but if their hand exceeds 21, they "bust" and automatically lose.  
+
+After the player's turn, the dealer reveals their hand and follows a strict set of rules:
+- The dealer must **hit** (draw a card) until their hand totals 17 or more.
+- The dealer must **stand** (stop drawing) once their hand totals 17 or more.
+- If the dealer busts (goes over 21), the player wins.
+
+The goal is to have a hand value closer to 21 than the dealer's hand without exceeding 21. 
 
 &nbsp;  
 
@@ -28,7 +35,7 @@ If you'd prefer a video explanation of the game, check one out [here](https://ww
 2. **Get your cards**: You and the dealer each get two cards.  
 3. **Decide**:  
     - *Hit* to draw another card (*type "Y"*).  
-    - *Hold* to keep your current hand (*type "N"*).  
+    - *Stand* to keep your current hand (*type "N"*).  
 4. **Check for a win**: The game checks for a Blackjack (21) or a Bust (over 21).
 5. **Dealer's turn**: The dealer plays until their hand is 17 or higher.
 6. **Final Result**: The closest hand to 21 wins. If it's a tie, it's a Push.
