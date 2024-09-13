@@ -74,8 +74,13 @@ Good luck!
 
 &nbsp; 
 
-## Future Improvement Checklists
-1. Add Split function?  
-2. Add Double Money function?
-3. Make it multiplayer and online playable?  
-4. Make some digital currency to bet money with?  
+## Future Ideas  
+- [ ] Add Split feature?  
+- [ ] Add Double Money feature?
+- [ ] Make it multiplayer and online playable?  
+- [ ] Make some digital currency to bet money with?  
+  
+&nbsp;  
+  
+## Contributing  
+Any sort of contributions are welcomed and appreciated :)
